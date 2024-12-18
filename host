@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReaperYBSTUDY</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #1c1c1c;
+            color: #fff;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        header {
+            background: #222;
+            color: #d4af37;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.5rem;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: #292929;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: #d4af37;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        nav a:hover {
+            background: #444;
+            border-radius: 5px;
+        }
+        section {
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .pomodoro, .tasks, .stats, .music {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#d4af37 0%, #555 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            background: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #d4af37;
+            color: #222;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #444;
+            text-align: center;
+        }
+        table th {
+            background: #333;
+            color: #d4af37;
+        }
+        table td {
+            cursor: pointer;
+            background: #222;
+        }
+        table td:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>ReaperYBSTUDY - Your Ultimate Study Companion 🚀</header>
+
+    <nav>
+        <a href="#pomodoro">Pomodoro</a>
+        <a href="#tasks">Tasks</a>
+        <a href="#stats">Statistics</a>
+        <a href="#music">Music Player</a>
+        <a href="#weekly">Weekly Planner</a>
+    </nav>
+
+    <section id="pomodoro" class="pomodoro">
+        <h2>Pomodoro Timer</h2>
+        <div class="circle" id="timer">25:00</div>
+        <div>
+            <button onclick="adjustTime(-5)">-5m</button>
+            <button onclick="startTimer()">Start</button>
+            <button onclick="pauseTimer()">Pause</button>
+            <button onclick="resetTimer()">Reset</button>
+            <button onclick="adjustTime(5)">+5m</button>
+        </div>
+    </section>
+
+    <section id="tasks" class="tasks">
+        <h2>Task Checklist</h2>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+    </section>
+
+    <section id="stats" class="stats">
+        <h2>Statistics</h2>
+        <p>Your progress and XP will be displayed here.</p>
+        <canvas id="statsChart" width="400" height="200"></canvas>
+    </section>
+
+    <section id="music" class="music">
+        <h2>Music Player</h2>
+        <button onclick="playMusic()">Play Focus Music</button>
+        <button onclick="pauseMusic()">Pause</button>
+    </section>
+
+    <section id="weekly" class="tasks">
+        <h2>Weekly Planner</h2>
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+            <script>
+                for (let i = 0; i < 24; i++) {
+                    document.write("<tr>");
+                    document.write(`<td>${i}:00</td>`);
+                    for (let j = 0; j < 7; j++) {
+                        document.write("<td contenteditable='true'></td>");
+                    }
+                    document.write("</tr>");
+                }
+            </script>
+        </table>
+    </section>
+
+    <script>
+        let timerInterval;
+        let seconds = 1500;
+
+        function adjustTime(min) {
+            seconds += min * 60;
+            updateTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (seconds > 0) {
+                    seconds--;
+                    updateTimer();
+                } else {
+                    clearInterval(timerInterval);
+                    alert("Time's up!");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            seconds = 1500;
+            updateTimer();
+        }
+
+        function updateTimer() {
+            const timerElement = document.getElementById("timer");
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            timerElement.textContent = `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+        }
+
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskList = document.getElementById("taskList");
+
+            if (taskInput.value.trim() !== "") {
+                const listItem = document.createElement("li");
+                listItem.textContent = taskInput.value;
+                taskList.appendChild(listItem);
+                taskInput.value = "";
+
+                listItem.onclick = function() {
+                    listItem.style.textDecoration = "line-through";
+                };
+            }
+        }
+
+        let audio = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+        function playMusic() {
+            audio.play();
+        }
+        function pauseMusic() {
+            audio.pause();
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById("statsChart").getContext("2d");
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                datasets: [{
+                    label: "Hours Focused",
+                    data: [2, 3, 4, 5, 6],
+                    backgroundColor: "gold"
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
