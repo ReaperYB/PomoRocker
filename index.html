@@ -212,7 +212,7 @@
 </div>
 
 <!-- Dynamic Register Form -->
-<section id="registerForm" style="display: none; position: absolute; top: 70px; right: 10px; background: var(--dark); padding: 1rem; border-radius: 10px; text-align: center; width: 300px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
+<section id="registerFormUnique" style="display: none; position: absolute; top: 70px; right: 10px; background: var(--dark); padding: 1rem; border-radius: 10px; text-align: center; width: 300px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
 <h3 style="color: var(--accent);">إنشاء حساب</h3>
 <input id="username" placeholder="اسم المستخدم" style="margin-bottom: 0.5rem; width: 90%; padding: 0.5rem; border-radius: 5px; border: 1px solid var(--accent);" type="text"/>
 <input id="password" placeholder="كلمة المرور" style="margin-bottom: 0.5rem; width: 90%; padding: 0.5rem; border-radius: 5px; border: 1px solid var(--accent);" type="password"/>
@@ -220,7 +220,7 @@
 <button onclick="registerUser()" style="background: var(--success); color: var(--light); border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">إنشاء حساب</button>
 </section>
 <!-- Dynamic Login Form -->
-<section id="loginForm" style="display: none; position: absolute; top: 70px; right: 10px; background: var(--dark); padding: 1rem; border-radius: 10px; text-align: center; width: 300px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
+<section id="loginFormUnique" style="display: none; position: absolute; top: 70px; right: 10px; background: var(--dark); padding: 1rem; border-radius: 10px; text-align: center; width: 300px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
 <h3 style="color: var(--accent);">تسجيل الدخول</h3>
 <input id="loginUsername" placeholder="اسم المستخدم" style="margin-bottom: 0.5rem; width: 90%; padding: 0.5rem; border-radius: 5px; border: 1px solid var(--accent);" type="text"/>
 <input id="loginPassword" placeholder="كلمة المرور" style="margin-bottom: 0.5rem; width: 90%; padding: 0.5rem; border-radius: 5px; border: 1px solid var(--accent);" type="password"/>
@@ -251,7 +251,7 @@
 </section>
 
 <script>
-    let timerInterval;
+    // Removed duplicate declaration of timerInterval
     let focusTime = 60; // وقت التركيز بالدقائق
     let breakTime = 15; // وقت الراحة بالدقائق
     let isFocusMode = true; // يبدأ بوضع التركيز
@@ -400,7 +400,7 @@
 
 
 <script>
-    let timerInterval;
+    // Removed duplicate declaration of timerInterval
     let focusTime = 60; // دقائق التركيز
     let breakTime = 15; // دقائق الراحة
     let isFocusMode = true;
@@ -558,7 +558,7 @@
     }
 </style>
 <script>
-    let timerInterval;
+    // Removed duplicate declaration of timerInterval
     let minutes = 25;
     let seconds = 0;
 
